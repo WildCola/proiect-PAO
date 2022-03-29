@@ -1,6 +1,6 @@
 package com.company.users;
 
-public class User {
+public abstract class User {
     protected String uName;
     protected String fName;
     protected String lName;
