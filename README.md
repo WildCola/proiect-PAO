@@ -1,4 +1,4 @@
-<h2>Baza de date de filme
+<h1>Baza de date de filme
   <h2>Interogari / Actiuni:
   <h3>Client:
     <ul>
