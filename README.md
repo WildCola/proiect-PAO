@@ -1,5 +1,5 @@
 <h2>Baza de date de filme
-  <h3>Interogari / Actiuni:
+  <h2>Interogari / Actiuni:
   <h3>Client:
     <ul>
       <li>Inregistrare cont
@@ -24,7 +24,7 @@
       <li>Stergere film din baza de date
       <li>Updatare informatii film
     </ul>
-  <h3>Obiecte:
+  <h2>Obiecte:
     <ul>
       <li>User (client, client premium, admin)
       <li>Movie (+ Show)
