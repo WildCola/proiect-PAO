@@ -4,7 +4,7 @@
     <ul>
       <li>Inregistrare cont
       <li>Log in
-      <li>Afisare informatii film
+      <li>Afisare informatii film/serial
       <li>Adaugare film in lista de filme vazute
       <li>Adaugare film in watchlist
       <li>Rate la film
