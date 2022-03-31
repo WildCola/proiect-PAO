@@ -6,14 +6,12 @@ public class Show extends Movie{
     private List<Movie> episodes;
 
     public Show(){
-        this.title = "placeholder_title";
-        this.directors = Collections.singletonList("placeholder_director");
-        this.genre = "placeholder_genre";
+        super();
     }
 
 
-    public Show(String title, List<String> directors, String genre, List<Movie> episodes) {
-        super(title, directors, genre);
+    public Show(String title, List<String> directors, String genre, String date, List<Movie> episodes) {
+        super(title, directors, genre, date);
         this.episodes = episodes;
     }
 
