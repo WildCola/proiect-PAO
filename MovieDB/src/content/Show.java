@@ -3,23 +3,22 @@ package content;
 import java.util.*;
 
 public class Show extends Movie{
-    private List<Movie> episodes;
+    private List<Episode> episodes;
 
     public Show(){
         super();
     }
 
-
-    public Show(String title, List<String> directors, String genre, String date, List<Movie> episodes) {
-        super(title, directors, genre, date);
+    public Show(String title, List<Crew> directors, List<Genre> genres, String date, List<Episode> episodes) {
+        super(title, directors, genres, date);
         this.episodes = episodes;
     }
 
-    public List<Movie> getEpisodes() {
+    public List<Episode> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(List<Movie> episodes) {
+    public void setEpisodes(List<Episode> episodes) {
         this.episodes = episodes;
     }
 }

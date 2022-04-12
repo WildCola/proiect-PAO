@@ -3,23 +3,24 @@ package content;
 import java.util.*;
 
 public class Movie {
-    protected String title;
-    protected List<String> directors;
-    protected String genre;
-    protected List<Integer> ratings;
-    protected String date;
+    private String title;
+    private List<Crew> directors;
+    private List<Crew> writers;
+    private List<Crew> producers;
+    private List<Crew> actors;
+    private List<Genre> genres;
+    private List<Integer> ratings;
+    private String date;
 
     public Movie() {
         this.title = "placeholder_title";
-        this.directors = Collections.singletonList("placeholder_director");
-        this.genre = "placeholder_genre";
         this.date = "placeholder_date";
     }
 
-    public Movie(String title, List<String> directors, String genre, String date) {
+    public Movie(String title, List<Crew> directors, List<Genre> genres, String date) {
         this.title = title;
         this.directors = directors;
-        this.genre = genre;
+        this.genres = genres;
         this.date = date;
     }
 
@@ -31,20 +32,28 @@ public class Movie {
         this.title = title;
     }
 
-    public List<String> getDirectors() {
+    public List<Crew> getDirectors() {
         return directors;
     }
 
-    public void setDirectors(List<String> directors) {
-        this.directors = directors;
+    public List<Crew> getWriters() {
+        return writers;
     }
 
-    public String getGenre() {
-        return genre;
+    public List<Crew> getProducers() {
+        return producers;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public List<Crew> getActors() {
+        return actors;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public List<Integer> getRatings() {
@@ -63,26 +72,5 @@ public class Movie {
         this.date = date;
     }
 
-    public boolean greaterThan(Movie x) {
-        if(this.ratings == null)
-            return false;
-        if(x.ratings == null)
-            return true;
-
-        float r1=0, r2=0;
-        for(int i = 0; i<this.ratings.size(); ++i){
-            r1 += this.ratings.get(i);
-        }
-        r1 /= this.ratings.size();
-
-        List<Integer> xratings = x.getRatings();
-
-        for(int i = 0; i<xratings.size(); ++i){
-            r2 += xratings.get(i);
-        }
-        r2 /= xratings.size();
-
-        return r1 > r2;
-    }
 }
 

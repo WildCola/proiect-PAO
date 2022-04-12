@@ -1,12 +1,12 @@
 package users;
 
 public class User {
-    protected static int id = 0;
-    protected String uName;
-    protected String fName;
-    protected String lName;
-    protected String password;
-    protected String email;
+    private static int id = 0;
+    private String uName;
+    private String fName;
+    private String lName;
+    private String password;
+    private String email;
 
     public User() {
         this.uName = "User " + id;

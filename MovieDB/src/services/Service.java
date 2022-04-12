@@ -1,9 +1,7 @@
 package services;
 
-import content.Movie;
-import content.MovieList;
-import content.Show;
-import users.User;
+import content.*;
+import users.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,10 +9,69 @@ import java.util.*;
 
 public class Service {
 
+    public static boolean uniqueEmail(String email, List<Client> clientList){
+        Iterator<Client> i = clientList.iterator();
+        while (i.hasNext()) {
+            Client client = i.next();
+            if (email.equals(client.getEmail())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static Client createClient(List<Client> clientList){
+        Scanner keyboard = new Scanner(System.in);
+        String fname;
+        String lname;
+        String uname;
+        String email;
+        String password;
+        System.out.println("Create new user\n");
+
+        boolean ok = true;
+        System.out.println("Email: ");
+        email = keyboard.next();
+        while(uniqueEmail(email, clientList) == false){
+            System.out.println("There already exists an account with this email!");
+            System.out.println("Email: ");
+            email = keyboard.next();
+        }
+
+        System.out.println("Username: ");
+        uname = keyboard.next();
+
+        System.out.println("Password: ");
+        password = keyboard.next();
+
+        System.out.println("First name: ");
+        fname = keyboard.next();
+
+        System.out.println("Last name: ");
+        lname = keyboard.next();
+
+        Client c = new Client(uname, lname, fname, password, email);
+        return c;
+    }
+
+//    public static Movie createMovie(){
+//        Scanner keyboard = new Scanner(System.in);
+//    }
+
+    public static void listCLients(List<Client> clientList){
+        System.out.println("Client list\n");
+        Iterator<Client> i = clientList.iterator();
+        while(i.hasNext()){
+            Client client = i.next();
+            userInfo(client);
+            System.out.println();
+        }
+    }
+
     public static void movieInfo(Movie x){
         System.out.println(x.getTitle());
         System.out.println(x.getDirectors());
-        System.out.println(x.getGenre());
+        System.out.println(x.getGenres());
         List<Integer> ratings = x.getRatings();
         float r = 0;
         if(ratings != null)
@@ -35,21 +92,17 @@ public class Service {
         x.setRatings(ratings);
     }
 
-    public static void updateMovie(Movie x, String title, List<String> directors, String genre){
+    public static void updateMovie(Movie x, String title){
         x.setTitle(title);
-        x.setDirectors(directors);
-        x.setGenre(genre);
     }
 
-    public static void updateShow(Show x, String title, List<String> directors, String genre, List<Movie> episodes){
+    public static void updateShow(Show x, String title, List<Episode> episodes){
         x.setTitle(title);
-        x.setDirectors(directors);
-        x.setGenre(genre);
         x.setEpisodes(episodes);
     }
 
     public static void listEpisodes(Show x){
-        List<Movie> episodes = x.getEpisodes();
+        List<Episode> episodes = x.getEpisodes();
         if(x == null)
             System.out.println("Episode list not found");
         else
