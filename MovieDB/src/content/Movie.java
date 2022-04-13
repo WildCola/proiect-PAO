@@ -17,10 +17,18 @@ public class Movie {
         this.date = "placeholder_date";
     }
 
-    public Movie(String title, List<Crew> directors, List<Genre> genres, String date) {
+    public Movie(String title, String date){
+        this.title = title;
+        this.date = date;
+    }
+
+    public Movie(String title, List<Crew> directors, List<Crew> writers, List<Crew> producers, List<Crew> actors, List<Genre> genres, String date) {
         this.title = title;
         this.directors = directors;
         this.genres = genres;
+        this.producers = producers;
+        this.writers = writers;
+        this.actors = actors;
         this.date = date;
     }
 

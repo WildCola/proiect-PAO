@@ -9,8 +9,13 @@ public class Episode extends Movie{
         super();
     }
 
-    public Episode(String title, List<Crew> directors, List<Genre> genres, String date, Show parentShow){
-        super(title, directors, genres, date);
+    public Episode(String title, String date, Show parentShow){
+        super(title, date);
+        this.parentShow = parentShow;
+    }
+
+    public Episode(String title, List<Crew> directors, List<Crew> writers, List<Crew> producers, List<Crew> actors, List<Genre> genres, String date, Show parentShow){
+        super(title, directors, writers, producers, actors, genres, date);
         this.parentShow = parentShow;
     }
 

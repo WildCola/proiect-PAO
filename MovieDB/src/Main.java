@@ -52,8 +52,11 @@ public class Main {
 
         List<Client> clients = new ArrayList<>();
         List<Movie> movies = new ArrayList<>();
-        List<Show> series = new ArrayList<>();
+        List<Show> shows = new ArrayList<>();
         List<Crew> directors = new ArrayList<>();
+        List<Crew> producers = new ArrayList<>();
+        List<Crew> writers = new ArrayList<>();
+        List<Crew> actors = new ArrayList<>();
         List<Genre> genres = new ArrayList<>();
         boolean ok = true;
 
@@ -65,7 +68,8 @@ public class Main {
             System.out.println("3. Create Serie");
             System.out.println("4. Show Users");
             System.out.println("5. Show Movies");
-            System.out.println("6. Show Series\n");
+            System.out.println("6. Show Series");
+            System.out.println("0. Exit\n");
 
             Scanner keyboard = new Scanner(System.in);
             int choice = keyboard.nextInt();
@@ -82,12 +86,25 @@ public class Main {
                     break;
 
                 case 2:
-                    //Movie newMovie =
+                    Movie newMovie = Service.createMovie(movies);
+                    movies.add(newMovie);
+                    break;
+
+                case 3:
+                    Show newShow = Service.createShow(shows);
+                    shows.add(newShow);
                     break;
 
                 case 4:
                     Service.listCLients(clients);
                     break;
+
+                case 5:
+                    Service.listMovies(movies);
+                    break;
+
+                case 6:
+                    Service.listShows(shows);
             }
         }
     }
