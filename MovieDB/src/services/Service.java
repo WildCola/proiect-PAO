@@ -8,11 +8,196 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.File;
 
 
 public class Service {
+
+    public static FileWriter initializeWriter(String filename){
+        File myFile = new File(filename);
+        try{
+            FileWriter myWriter = new FileWriter(filename);
+            return myWriter;
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void Audit(String name, FileWriter writer){
+        File audit = new File("audit.csv");
+        try {
+            LocalDateTime localDate = LocalDateTime.now();
+            DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("hh:mm:ss");
+            String line = name + "," + localDate.format(myFormat) + "\n";
+            writer.write(line);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clientWriter(List<Client> clients) throws IOException {
+        File myFile = new File("clients.csv");
+        FileWriter writer = initializeWriter("clients.csv");
+        Iterator<Client> i = clients.iterator();
+        while (i.hasNext()) {
+            Client c = i.next();
+            String line = "";
+            line += c.getuName() + "," + c.getfName() + "," + c.getlName() + "," + c.getPassword() + "," + c.getEmail();
+            if (c.isPremium()){
+                line += ",true," + c.getAddress() + "," + c.getCard();
+            }
+            line += "\n";
+            writer.write(line);
+        }
+        writer.close();
+    }
+
+    public static void movieWriter(List<Movie> movies) throws IOException {
+        File myFile = new File("movies.csv");
+        FileWriter writer = initializeWriter("movies.csv");
+        Iterator<Movie> i = movies.iterator();
+        while (i.hasNext()) {
+            Movie m = i.next();
+            String line = "";
+            line += m.getTitle() + ",";
+
+            if(m.getDirectors() != null){
+                Iterator<Crew> j = m.getDirectors().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName();
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                j = m.getWriters().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName();
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                j = m.getProducers().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName() ;
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                j = m.getActors().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName() ;
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                Iterator<Genre> k = m.getGenres().iterator();
+                while (k.hasNext()){
+                    Genre g = k.next();
+                    line += g.getName() ;
+                    if(k.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                Iterator<Integer> l = m.getRatings().iterator();
+                while (l.hasNext()){
+                    int r = l.next();
+                    line += String.valueOf(r);
+                    if(l.hasNext()){ line += "/"; }
+                }
+                line += ",";
+            }
+
+            line += m.getDate();
+
+            line += "\n";
+            writer.write(line);
+        }
+        writer.close();
+    }
+
+    public static void showWriter(List<Show> shows) throws IOException {
+        File myFile = new File("shows.csv");
+        FileWriter writer = initializeWriter("shows.csv");
+        Iterator<Show> i = shows.iterator();
+        while (i.hasNext()) {
+            Show m = i.next();
+            String line = "";
+            line += m.getTitle() + ",";
+
+            if(m.getDirectors() != null){
+                Iterator<Crew> j = m.getDirectors().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName();
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                j = m.getWriters().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName();
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                j = m.getProducers().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName() ;
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                j = m.getActors().iterator();
+                while (j.hasNext()){
+                    Crew c = j.next();
+                    line += c.getFullName() ;
+                    if(j.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                Iterator<Genre> k = m.getGenres().iterator();
+                while (k.hasNext()){
+                    Genre g = k.next();
+                    line += g.getName() ;
+                    if(k.hasNext()){ line += "/"; }
+                }
+                line += ",";
+
+                Iterator<Integer> l = m.getRatings().iterator();
+                while (l.hasNext()){
+                    int r = l.next();
+                    line += String.valueOf(r);
+                    if(l.hasNext()){ line += "/"; }
+                }
+                line += ",";
+            }
+
+            line += m.getDate() + ",";
+
+            Iterator<Episode> j = m.getEpisodes().iterator();
+            while (j.hasNext()){
+                Episode e = j.next();
+                line += e.getTitle() + "/" + e.getDate();
+                if(j.hasNext()){ line += "/"; }
+            }
+
+            line += "\n";
+            writer.write(line);
+        }
+        writer.close();
+    }
 
     public static List<Client> clientReader(){
         String line = "";
@@ -54,37 +239,42 @@ public class Service {
                 List<Genre> genres = new ArrayList<>();
                 List<Integer> ratings = new ArrayList<>();
 
-                String[] info = movie[1].split("/");
-                for(int i=0; i<info.length; ++i){
-                    directors.add(new Crew(info[i]));
+                if(movie.length == 2){
+                    movies.add(new Movie(movie[0], movie[1]));
                 }
+                else{
+                    String[] info = movie[1].split("/");
+                    for(int i=0; i<info.length; ++i){
+                        directors.add(new Crew(info[i]));
+                    }
 
-                info = movie[2].split("/");
-                for(int i=0; i<info.length; ++i){
-                    writers.add(new Crew(info[i]));
+                    info = movie[2].split("/");
+                    for(int i=0; i<info.length; ++i){
+                        writers.add(new Crew(info[i]));
+                    }
+
+                    info = movie[3].split("/");
+                    for(int i=0; i<info.length; ++i){
+                        producers.add(new Crew(info[i]));
+                    }
+
+                    info = movie[4].split("/");
+                    for(int i=0; i<info.length; ++i){
+                        actors.add(new Crew(info[i]));
+                    }
+
+                    info = movie[5].split("/");
+                    for(int i=0; i<info.length; ++i){
+                        genres.add(new Genre(info[i]));
+                    }
+
+                    info = movie[6].split("/");
+                    for(int i=0; i<info.length; ++i){
+                        ratings.add(Integer.parseInt(info[i]));
+                    }
+
+                    movies.add(new Movie(movie[0], directors, writers, producers, actors, genres, ratings, movie[7]));
                 }
-
-                info = movie[3].split("/");
-                for(int i=0; i<info.length; ++i){
-                    producers.add(new Crew(info[i]));
-                }
-
-                info = movie[4].split("/");
-                for(int i=0; i<info.length; ++i){
-                    actors.add(new Crew(info[i]));
-                }
-
-                info = movie[5].split("/");
-                for(int i=0; i<info.length; ++i){
-                    genres.add(new Genre(info[i]));
-                }
-
-                info = movie[6].split("/");
-                for(int i=0; i<info.length; ++i){
-                    ratings.add(Integer.parseInt(info[i]));
-                }
-
-                movies.add(new Movie(movie[0], directors, writers, producers, actors, genres, ratings, movie[7]));
             }
         }
         catch (IOException e) {
@@ -249,7 +439,7 @@ public class Service {
         System.out.println("Create new user\n");
 
         System.out.println("Email: ");
-        email = keyboard.next();
+        email = keyboard.nextLine();
         while(uniqueEmail(email, clientList) == false){
             System.out.println("There already exists an account with this email!");
             System.out.println("Email: ");

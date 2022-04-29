@@ -2,11 +2,13 @@ import content.*;
 import services.*;
 import users.*;
 
+import java.io.IOException;
 import java.util.*;
+import java.io.FileWriter;
 
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 //        Crew cr1 = new Crew("bob");
 //        List<Crew> regizori = new ArrayList<>();
 //        regizori.add(cr1);
@@ -61,6 +63,7 @@ public class Main {
         List<MovieList> movieLists = Service.movieListReader(clients, movies);
         boolean ok = true;
 
+        FileWriter auditWriter = Service.initializeWriter("audit.csv");
 
         while(ok){
             System.out.println("MovieDB\n");
@@ -85,33 +88,44 @@ public class Main {
                 case 1:
                     Client newClient = Service.createClient(clients);
                     clients.add(newClient);
+                    Service.Audit("Add_Client", auditWriter);
                     break;
 
                 case 2:
                     Movie newMovie = Service.createMovie(movies);
                     movies.add(newMovie);
+                    Service.Audit("Add_Movie", auditWriter);
                     break;
 
                 case 3:
                     Show newShow = Service.createShow(shows);
                     shows.add(newShow);
+                    Service.Audit("Add_Show", auditWriter);
                     break;
 
                 case 4:
                     Service.listCLients(clients);
+                    Service.Audit("List_Clients", auditWriter);
                     break;
 
                 case 5:
                     Service.listMovies(movies);
+                    Service.Audit("List_Movies", auditWriter);
                     break;
 
                 case 6:
                     Service.listShows(shows);
+                    Service.Audit("List_Shows", auditWriter);
                     break;
                 case 7:
                     Service.listLists(movieLists);
+                    Service.Audit("List_MovieLists", auditWriter);
                     break;
             }
         }
+        Service.clientWriter(clients);
+        Service.movieWriter(movies);
+        Service.showWriter(shows);
+        auditWriter.close();
     }
 }
