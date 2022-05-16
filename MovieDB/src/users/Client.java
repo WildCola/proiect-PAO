@@ -67,4 +67,6 @@ public class Client extends User{
     public void setCard(String card) {
         this.card = card;
     }
+
 }
+

@@ -1,6 +1,7 @@
 package content;
 
 import users.Client;
+
 import users.User;
 
 import java.time.format.DateTimeFormatter;
@@ -8,6 +9,7 @@ import java.util.*;
 import java.time.*;
 
 public class MovieList {
+
     private Client creator;
     private Set<Movie> entries;
     private String createDate;
@@ -18,6 +20,7 @@ public class MovieList {
         this.creator = creator;
         this.entries = entries;
         this.name = name;
+
         LocalDateTime localDate = LocalDateTime.now();
         DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("E, MMM dd yyyy, hh:mm");
         this.createDate = localDate.format(myFormat);
@@ -48,6 +51,7 @@ public class MovieList {
         this.updateDate = updateDate;
     }
 
+
     public String getName() {
         return name;
     }
@@ -55,4 +59,5 @@ public class MovieList {
     public void setName(String name) {
         this.name = name;
     }
+
 }

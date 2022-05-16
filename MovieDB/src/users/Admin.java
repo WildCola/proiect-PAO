@@ -32,4 +32,6 @@ public class Admin extends User{
     public void setMaxAuthority(boolean maxAuthority) {
         this.maxAuthority = maxAuthority;
     }
+
 }
+

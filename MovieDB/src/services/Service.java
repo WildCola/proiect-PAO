@@ -385,6 +385,7 @@ public class Service {
         return movieLists;
     }
 
+
     public static boolean uniqueEmail(String email, List<Client> clientList){
         Iterator<Client> i = clientList.iterator();
         while (i.hasNext()) {
@@ -439,7 +440,9 @@ public class Service {
         System.out.println("Create new user\n");
 
         System.out.println("Email: ");
+
         email = keyboard.nextLine();
+
         while(uniqueEmail(email, clientList) == false){
             System.out.println("There already exists an account with this email!");
             System.out.println("Email: ");
@@ -577,7 +580,9 @@ public class Service {
         Iterator<Client> i = clientList.iterator();
         while(i.hasNext()){
             Client client = i.next();
+
             clientInfo(client);
+
             System.out.println();
         }
     }
@@ -602,6 +607,7 @@ public class Service {
         }
     }
 
+
     public static void listLists(List<MovieList> movieLists){
         System.out.println("Movie lists\n");
         Iterator<MovieList> i = movieLists.iterator();
@@ -612,11 +618,13 @@ public class Service {
         }
     }
 
+
     public static void userInfo(User x){
         System.out.println("Username: " + x.getuName());
         System.out.println("Full Name: " + x.getfName() + " " + x.getlName());
         System.out.println("Email: " + x.getEmail());
     }
+
 
     public static void clientInfo(Client x){
         System.out.println("Username: " + x.getuName());
@@ -627,6 +635,7 @@ public class Service {
             System.out.println("Card: " + x.getCard());
         }
     }
+
 
     public static void movieInfo(Movie x){
         System.out.println("Title: " + x.getTitle());
@@ -640,6 +649,7 @@ public class Service {
                 r += ratings.get(i);
             }
             r /= ratings.size();
+
             System.out.println("Rating: " + r);
         }
 
@@ -681,6 +691,7 @@ public class Service {
                 printCrew += ", " + crew.get(i).getFullName();
             }
             System.out.println("Actors: " + printCrew);
+
         }
     }
 
@@ -720,17 +731,21 @@ public class Service {
     }
 
     public static void movielistInfo(MovieList l){
+
         System.out.println("List name: " + l.getName());
+
         System.out.println("Creator: " + l.getCreator().getuName());
 
         System.out.println("Movies: ");
         Set<Movie> s = l.getEntries();
         Iterator<Movie> i = s.iterator();
+
         int nr = 0;
         while(i.hasNext()){
             System.out.println();
             nr++;
             System.out.println(nr + ".");
+
             Movie m = i.next();
             movieInfo(m);
 

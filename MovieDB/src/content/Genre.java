@@ -21,6 +21,7 @@ public class Genre {
         this.shows = shows;
     }
 
+
     public String getName() {
         return name;
     }

@@ -9,9 +9,11 @@ public class Show extends Movie{
         super();
     }
 
+
     public Show(String title, List<Crew> directors, List<Crew> writers, List<Crew> producers, List<Crew> actors, List<Genre> genres, List<Integer> ratings, String date){
         super(title, directors, writers, producers, actors, genres, ratings, date);
     }
+
 
     public Show(String title, String date, List<Episode> episodes){
         super(title, date);
@@ -27,6 +29,7 @@ public class Show extends Movie{
         super(title, directors, writers, producers, actors, genres, ratings, date);
         this.episodes = episodes;
     }
+
 
     public List<Episode> getEpisodes() {
         return episodes;
