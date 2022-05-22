@@ -68,7 +68,7 @@ public class Main {
         List<MovieList> movieLists = Service.movieListReader(clients, movies);
         boolean ok = true;
 
-
+        FileWriter auditWriter = Service.initializeWriter("audit.csv");
 
         while(ok){
             System.out.println("MovieDB\n");
@@ -85,6 +85,8 @@ public class Main {
 
             Scanner keyboard = new Scanner(System.in);
             int choice = keyboard.nextInt();
+
+
 
             switch (choice) {
                 default:
