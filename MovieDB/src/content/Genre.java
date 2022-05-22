@@ -15,6 +15,13 @@ public class Genre {
         this.name = name;
     }
 
+    public Genre(String name, List<Movie> movies, List<Show> shows){
+        this.name = name;
+        this.movies = movies;
+        this.shows = shows;
+    }
+
+
     public String getName() {
         return name;
     }

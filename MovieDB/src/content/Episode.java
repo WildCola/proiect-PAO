@@ -26,4 +26,6 @@ public class Episode extends Movie{
     public void setParentShow(Show parentShow) {
         this.parentShow = parentShow;
     }
+
 }
+

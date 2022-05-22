@@ -25,10 +25,23 @@ public class Movie {
     public Movie(String title, List<Crew> directors, List<Crew> writers, List<Crew> producers, List<Crew> actors, List<Genre> genres, String date) {
         this.title = title;
         this.directors = directors;
-        this.genres = genres;
+
         this.producers = producers;
         this.writers = writers;
         this.actors = actors;
+        this.genres = genres;
+        this.date = date;
+    }
+
+    public Movie(String title, List<Crew> directors, List<Crew> writers, List<Crew> producers, List<Crew> actors, List<Genre> genres, List<Integer> ratings, String date) {
+        this.title = title;
+        this.directors = directors;
+        this.producers = producers;
+        this.writers = writers;
+        this.actors = actors;
+        this.genres = genres;
+        this.ratings = ratings;
+
         this.date = date;
     }
 

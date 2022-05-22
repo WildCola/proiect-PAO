@@ -1,5 +1,7 @@
 package content;
 
+import users.Client;
+
 import users.User;
 
 import java.time.format.DateTimeFormatter;
@@ -7,14 +9,18 @@ import java.util.*;
 import java.time.*;
 
 public class MovieList {
-    private User creator;
+
+    private Client creator;
     private Set<Movie> entries;
     private String createDate;
     private String updateDate;
+    private String name;
 
-    public MovieList(User creator, Set<Movie> entries) {
+    public MovieList(Client creator, Set<Movie> entries, String name) {
         this.creator = creator;
         this.entries = entries;
+        this.name = name;
+
         LocalDateTime localDate = LocalDateTime.now();
         DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("E, MMM dd yyyy, hh:mm");
         this.createDate = localDate.format(myFormat);
@@ -44,4 +50,14 @@ public class MovieList {
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
