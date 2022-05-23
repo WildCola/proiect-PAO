@@ -12,9 +12,187 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class Service {
+
+    public static void createAdminTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS admin" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "username varchar(30), " +
+                "firstname varchar(30)," +
+                "lastname varchar(30)," +
+                "password varchar(30)," +
+                "email varchar(30)," +
+                "start int," +
+                "end int," +
+                "authority bool)";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createClientTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS user" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "username varchar(30), " +
+                "firstname varchar(30)," +
+                "lastname varchar(30)," +
+                "password varchar(30)," +
+                "email varchar(30)," +
+                "premium bool," +
+                "watchedlist json," +
+                "watchlist json," +
+                "address varchar(30)," +
+                "card varchar(16))";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createMovieTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS movie" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "title varchar(30), " +
+                "genres json," +
+                "ratings json," +
+                "releasedate date)";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createShowTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS serie" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "title varchar(30), " +
+                "genres json," +
+                "ratings json," +
+                "episodes json," +
+                "releasedate date)";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createEpisodeTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS episode" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "title varchar(30), " +
+                "genres json," +
+                "ratings json," +
+                "serie json," +
+                "releasedate date)";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createCrewTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS crew" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "name varchar(30))";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createMovieCrewTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS movie_crew_junction" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "movie_id int NOT NULL, " +
+                "FOREIGN KEY (movie_id) REFERENCES movie(id)," +
+                "crew_id int NOT NULL," +
+                "FOREIGN KEY (crew_id) REFERENCES crew(id)," +
+                "director bool," +
+                "writer bool," +
+                "producer bool," +
+                "actor bool)";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createShowCrewTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS serie_crew_junction" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "serie_id int NOT NULL, " +
+                "FOREIGN KEY (serie_id) REFERENCES serie(id)," +
+                "crew_id int NOT NULL," +
+                "FOREIGN KEY (crew_id) REFERENCES crew(id)," +
+                "director bool," +
+                "writer bool," +
+                "producer bool," +
+                "actor bool)";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createEpisodeCrewTable(){
+        String createTableSql = "CREATE TABLE IF NOT EXISTS episode_crew_junction" +
+                "(id int PRIMARY KEY AUTO_INCREMENT, " +
+                "episode_id int NOT NULL, " +
+                "FOREIGN KEY (episode_id) REFERENCES episode(id)," +
+                "crew_id int NOT NULL," +
+                "FOREIGN KEY (crew_id) REFERENCES crew(id)," +
+                "director bool," +
+                "writer bool," +
+                "producer bool," +
+                "actor bool)";
+
+        Connection connection = DatabaseConfiguration.getDatabaseConnection();
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createTableSql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static FileWriter initializeWriter(String filename){
         File myFile = new File(filename);

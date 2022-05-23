@@ -1,59 +1,15 @@
 import content.*;
 import services.*;
 import users.*;
-
-
 import java.io.IOException;
 import java.util.*;
 import java.io.FileWriter;
 
 
+
+
 public class Main {
     public static void main(String[] args) throws IOException {
-
-//        Crew cr1 = new Crew("bob");
-//        List<Crew> regizori = new ArrayList<>();
-//        regizori.add(cr1);
-//        Genre g1 = new Genre("horror");
-//        List<Genre> genres = new ArrayList<>();
-//        genres.add(g1);
-//        Show s1 = new Show();
-//        Episode m1 = new Episode("titlu", regizori, genres, "01-01-2001", s1);
-//        Movie m2 = new Movie();
-//        List<Episode> ep = Collections.singletonList(m1);
-//
-//        s1 = new Show("show", regizori, genres, "05-05-2005",ep);
-//
-//        Service.addRating(m1, 5);
-//        Service.addRating(m1, 2);
-//        Service.movieInfo(m1);
-//        Service.updateMovie(s1, "titluu");
-//        Service.movieInfo(s1);
-//        Service.listEpisodes(s1);
-//
-//        User u0 = new User();
-//        User u1 = new User();
-//        System.out.println(u1.getuName());
-//
-//        Set<Movie> mset = new HashSet<Movie>();
-//        mset.add(m1);
-//        mset.add(m2);
-//
-//
-//        Service.addRating(m2, 5);
-//        Service.addRating(m2, 5);
-//        Movie m3 = new Movie("titlu3", regizori, genres, "data");
-//        Service.addRating(m3, 1);
-//
-//        MovieList l1 = new MovieList(u0, mset);
-//        Service.movielistInfo(l1);
-//        Service.addMovie(l1, m3);
-//        Service.sortascbyRating(l1);
-//        Service.movielistInfo(l1);
-//
-//        Client c1 = new Client("client", "prenume", "nume", "parola", "email");
-//        Service.userInfo(c1);
-
 
         List<Client> clients = Service.clientReader();
         List<Movie> movies = Service.movieReader();
@@ -85,6 +41,16 @@ public class Main {
 
             Scanner keyboard = new Scanner(System.in);
             int choice = keyboard.nextInt();
+
+            Service.createAdminTable();
+            Service.createClientTable();
+            Service.createMovieTable();
+            Service.createEpisodeTable();
+            Service.createShowTable();
+            Service.createCrewTable();
+            Service.createMovieCrewTable();
+            Service.createShowCrewTable();
+            Service.createEpisodeCrewTable();
 
             switch (choice) {
                 default:
@@ -145,6 +111,7 @@ public class Main {
         Service.movieWriter(movies);
         Service.showWriter(shows);
         auditWriter.close();
+        DatabaseConfiguration.closeDatabaseConnection();
 
     }
 }
