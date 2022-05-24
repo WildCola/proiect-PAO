@@ -20,11 +20,7 @@ public class Main {
         List<Crew> actors = new ArrayList<>();
         List<Genre> genres = new ArrayList<>();
         List<Show> shows = new ArrayList<>();
-
-//        CSV init
-//        List<Client> clients = Service.clientReader();
-//        List<Movie> movies = Service.movieReader();
-//        List<Show> shows = Service.showReader();
+        List<MovieList> movieLists = new ArrayList<>();
 
 //        SQL init
         ClientStatements clientStmt = new ClientStatements();
@@ -33,11 +29,15 @@ public class Main {
 
         MovieStatements movieStmt = new MovieStatements();
         movieStmt.createMovieTable();
+        movies = movieStmt.getAllMovies();
+
+//        CSV init
+//        clients = Service.clientReader();
+//        movies = Service.movieReader();
+//        shows = Service.showReader();
+//        movieLists = Service.movieListReader(clients, movies);
 
 
-
-
-        List<MovieList> movieLists = Service.movieListReader(clients, movies);
         boolean ok = true;
 
         FileWriter auditWriter = Service.initializeWriter("audit.csv");
@@ -139,6 +139,7 @@ public class Main {
                     movies = movieStmt.getAllMovies();
                     Service.Audit("Delete_Movie", auditWriter);
                     break;
+
             }
         }
         Service.clientWriter(clients);
@@ -146,6 +147,25 @@ public class Main {
         Service.showWriter(shows);
         auditWriter.close();
         DatabaseConfiguration.closeDatabaseConnection();
+
+        //DEMO SORTARE
+//        Set<Movie> movieSet = new HashSet<>();
+//        Client c1 = new Client();
+//        Movie m1 = new Movie("Film1", "2020");
+//        Movie m2 = new Movie("Film2", "2021");
+//        Movie m3 = new Movie("Film3", "2022");
+//
+//        Service.addRating(m1, 5);
+//        Service.addRating(m2, 1);
+//        Service.addRating(m3, 3);
+//
+//        movieSet.add(m1);
+//        movieSet.add(m2);
+//        movieSet.add(m3);
+//
+//        MovieList ml1 = new MovieList(c1, movieSet, "TestList");
+//        Service.sortascbyRating(ml1);
+//        Service.movielistInfo(ml1);
 
     }
 }
