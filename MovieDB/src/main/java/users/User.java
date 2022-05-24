@@ -14,6 +14,15 @@ public class User {
         id++;
     }
 
+    public User(int id, String uName, String fName, String lName, String password, String email) {
+        this.id = id;
+        this.uName = uName;
+        this.fName = fName;
+        this.lName = lName;
+        this.password = password;
+        this.email = email;
+    }
+
     public User(String uName, String fName, String lName, String password, String email) {
         this.uName = uName;
         this.fName = fName;

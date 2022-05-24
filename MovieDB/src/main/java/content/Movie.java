@@ -3,6 +3,7 @@ package content;
 import java.util.*;
 
 public class Movie {
+    private static int id = 0;
     private String title;
     private List<Crew> directors;
     private List<Crew> writers;
@@ -18,6 +19,12 @@ public class Movie {
     }
 
     public Movie(String title, String date){
+        this.title = title;
+        this.date = date;
+    }
+
+    public Movie(int id, String title, String date){
+        this.id = id;
         this.title = title;
         this.date = date;
     }
@@ -43,6 +50,10 @@ public class Movie {
         this.ratings = ratings;
 
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

@@ -21,8 +21,19 @@ public class Client extends User{
         super(uName, fName, lName, password, email);
     }
 
+    public Client(int id, String uName, String fName, String lName, String password, String email) {
+        super(id, uName, fName, lName, password, email);
+    }
+
     public Client(String uName, String fName, String lName, String password, String email, boolean premium, String address, String card) {
         super(uName, fName, lName, password, email);
+        this.premium = premium;
+        this.address = address;
+        this.card = card;
+    }
+
+    public Client(int id, String uName, String fName, String lName, String password, String email, boolean premium, String address, String card) {
+        super(id, uName, fName, lName, password, email);
         this.premium = premium;
         this.address = address;
         this.card = card;
