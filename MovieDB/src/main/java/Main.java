@@ -31,6 +31,13 @@ public class Main {
         movieStmt.createMovieTable();
         movies = movieStmt.getAllMovies();
 
+        ShowStatements showStmt = new ShowStatements();
+        showStmt.createShowTable();
+        shows = showStmt.getAllShows();
+
+        EpisodeStatements epStmt = new EpisodeStatements();
+        epStmt.createEpisodeTable();
+
 //        CSV init
 //        clients = Service.clientReader();
 //        movies = Service.movieReader();
@@ -89,7 +96,13 @@ public class Main {
                 case 3:
                     Show newShow = Service.createShow(shows);
                     shows.add(newShow);
+                    showStmt.insertShow(newShow);
+                    List<Episode> episodes = newShow.getEpisodes();
+                    for(int i=0; i<episodes.size(); ++i){
+                        epStmt.insertEpisode(episodes.get(i));
+                    }
 
+                    shows = showStmt.getAllShows();
                     Service.Audit("Add_Show", auditWriter);
 
                     break;
@@ -111,6 +124,7 @@ public class Main {
                     break;
 
                 case 6:
+                    shows = showStmt.getAllShows();
                     Service.listShows(shows);
 
                     Service.Audit("List_Shows", auditWriter);

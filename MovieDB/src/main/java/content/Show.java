@@ -9,14 +9,17 @@ public class Show extends Movie{
         super();
     }
 
-
     public Show(String title, List<Crew> directors, List<Crew> writers, List<Crew> producers, List<Crew> actors, List<Genre> genres, List<Integer> ratings, String date){
         super(title, directors, writers, producers, actors, genres, ratings, date);
     }
 
-
     public Show(String title, String date, List<Episode> episodes){
         super(title, date);
+        this.episodes = episodes;
+    }
+
+    public Show(int id, String title, String date, List<Episode> episodes){
+        super(id, title, date);
         this.episodes = episodes;
     }
 
